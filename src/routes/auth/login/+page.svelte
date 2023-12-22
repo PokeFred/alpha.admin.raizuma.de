@@ -1,8 +1,8 @@
 <script lang="ts">
     import type {ActionData} from "./$types"
-    import { page } from "$app/stores"
-    import { browser } from "$app/environment"
-    import { goto } from "$app/navigation";
+    import {page} from "$app/stores"
+    import {browser} from "$app/environment"
+    import {goto} from "$app/navigation"
 
     export let form: ActionData
 

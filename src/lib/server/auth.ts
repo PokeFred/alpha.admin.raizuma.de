@@ -1,7 +1,9 @@
 import type {Auth, User} from "@prisma/client"
-import db from "$server/database"
-import type {ActionResponse} from "$utils"
 import type {Cookies} from "@sveltejs/kit"
+import db from "$server/database"
+import type {ActionResponse, LayoutLoadResponse} from "$utils"
+
+const ACCESS_TOKEN_COOKIE_NAME: string = "access_token"
 
 export async function createUser(username: string, forename: string, surname: string, email: string, password: string, userCookies: Cookies): Promise<ActionResponse> {
     const userAlreadyExists: User[] = await db.user.findMany({
@@ -108,10 +110,24 @@ export async function createAuth(username: string, password: string, userCookies
         }
     }
 
-    userCookies.set("access_token", auth.access_token, {
+    userCookies.set(ACCESS_TOKEN_COOKIE_NAME, auth.access_token, {
         path: "/"
     })
 
+    return {
+        success: true,
+        message: ""
+    }
+}
+
+export async function isValidAuth(userCookies: Cookies): Promise<LayoutLoadResponse> {
+    const access_token: string | undefined = userCookies.get(ACCESS_TOKEN_COOKIE_NAME)
+    if (access_token === undefined) {
+        return {
+            success: false,
+            message: "Error: no valid auth."
+        }
+    }
     return {
         success: true,
         message: ""
