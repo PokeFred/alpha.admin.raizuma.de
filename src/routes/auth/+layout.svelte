@@ -6,7 +6,7 @@
     <div class="w-auto h-auto bg-slate-800 rounded-3xl p-4">
         <div class="w-80 h-auto flex justify-center items-center">
             <AuthHeaderButton text="Log In" newUrl="/auth/login" appendClasses="rounded-l-xl" />
-            <AuthHeaderButton text="Sign Up" newUrl="/auth/register" appendClasses="rounded-r-xl" />
+            <AuthHeaderButton text="Sign Up" newUrl="/auth/open" appendClasses="rounded-r-xl" />
         </div>
         <slot />
     </div>
